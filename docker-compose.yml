@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  rest_api:
+    restart: always
+    build: ./restapi
+    expose:
+      - 8000
+    command: /opt/conda/envs/rest-api-env/bin/gunicorn -w 4 -b :8000 --chdir /src/rest_api/rest_api/ wsgi:app
+
+  nginx:
+    restart: always
+    build: ./nginx
+    volumes:
+      - /etc/letsencrypt/:/etc/letsencrypt/
+    ports: 
+      - 80:80
+      - 443:443
+    depends_on:
+      - restapi
