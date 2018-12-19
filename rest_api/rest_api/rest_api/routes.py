@@ -12,11 +12,11 @@ registry = rebar.create_handler_registry()
 
 
 @registry.handles(
-    rule='/hello',
+    rule='/',
     method='GET'
 )
-def get_hello():
+def get_index():
     return response(
-        data={'message': 'Hello, Adam!'},
+        data={'message': 'Hello, Being!'},
         status_code=200
     )
